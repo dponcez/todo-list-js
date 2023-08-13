@@ -38,14 +38,14 @@ const initApp = () => {
         trashBtn 
       } = createElements;
   
-      newItem.innerText = todoInput.value;
+      newItem.innerText = INPUT_VALUE.toUpperCase()
   
       // add classes
-      listItems.classList.add('list--items');
       newItem.classList.add('item');
+      listItems.className = 'list--items';
       trashBtn.className = 'btn trash--btn';
   
-      trashBtn.innerHTML = '<i class="icon fa-solid fa-trash"></i>'
+      trashBtn.innerHTML = '<i class="icon fa-solid fa-trash"></i>';
   
       trashBtn.addEventListener('click', deleteTodo);
 
@@ -70,7 +70,7 @@ const initApp = () => {
     e.stopPropagation();
 
     const item = e.target;
-    if(item.className === 'btn trash--btn'){
+    if(item.classList.contains('trash--btn')){
 
       const todo = item.parentElement;
       todo.classList.add('fall');
