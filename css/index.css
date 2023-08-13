@@ -35,7 +35,6 @@ body { margin: 0; }
 :is(a, h1, button, li) { overflow-wrap: break-word; }
 
 body {
-  position: relative;
   color: var(--dark-color);
   --webkit-font-smoothing: antialiased;
   --moz-osx-font-smoothing: greyscale;
@@ -48,25 +47,17 @@ button {
   cursor: pointer; 
 }
 
-.container,
-.header,
-.list--items,
-.btn {
+:where(.container, .header, .list--items, .btn) {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.container,
-.header,
-.list--items {
+:where(.container, .form--container, .header, .list--items, .todo--input, .item) {
   width: var(--sz)
 }
 
-.todo { 
-  font-family: var(--fnt-abel); 
-  font-size: var(--pd)
-}
+.todo { font: normal var(--pd) var(--fnt-abel) }
 
 .btn {
   padding-inline: var(--pd);
@@ -74,7 +65,7 @@ button {
   color: var(--light-color);
   box-shadow: .1vmin .2vmin .25vmin rgba(0,0,0,.85);
   .icon { pointer-events: none; }
-  &:active { transform: scale(.98); }
+  &:active { transform: scale(.99); }
 }
 
 .add--btn { background-color: var(--add-color); }
@@ -89,22 +80,17 @@ button {
 .container {
   flex-direction: column;
   .header {
-    padding-block-start: 0;
-    padding-block-end: 0;
+    padding-block: 0;
     & .heading {
       margin-block-start: 0;
       margin-block-end: var(--pd);
-      font-family: var(--fnt-play);
-      font-size: var(--fnt-sz);
-      font-weight: 500;
+      font: 500 var(--fnt-sz) var(--fnt-play);
       &::first-letter { font-size: calc(var(--fnt-sz) * 1.75) }
     }
   }
 
   .form--container {
-    width: var(--sz);
     max-width: 22rem;
-    height: auto;
     & form {
       display: flex;
       gap: 0 var(--rd);
@@ -121,7 +107,6 @@ button {
         .item {
           display: flex; 
           list-style: none;
-          width: var(--sz);
           padding-inline: var(--rd);
           padding-block: calc(var(--rd) * .45);
           margin-inline-end: var(--rd);
