@@ -94,19 +94,21 @@ button {
       padding: 0;
       padding-block-start: var(--pd);
       .list--items { 
-        justify-content: space-between;
+        justify-content: space-around;
         margin-block-end: var(--rd);
         position: relative;
         transition: all 1000ms cubic-bezier(0.75, 1.75, 0.187, 0.67);
         .item {
           display: flex; 
           list-style: none;
+          width: min(70vw, var(--sz));
           padding-inline: var(--rd);
           padding-block: calc(var(--rd) * .45);
           margin-inline-end: var(--rd);
           border-radius: calc(var(--rd) * .45);
-          color: var(--dark-color);
-          background-color: hsl(39, 83%, 49%);
+          color: var(--light-color);
+          font-weight: 700;
+          background-color: hsl(22, 90%, 35%);
           box-shadow: .1vmin .2vmin .25vmin rgba(0,0,0,.85);
         }
       }
