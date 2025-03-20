@@ -1,1 +1,2 @@
-import { initApp } from './modules/init_app.js';
+import {initTodoList} from '../modules/add_todo.js';
+initTodoList()
