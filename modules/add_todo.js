@@ -3,6 +3,7 @@ import { createElement } from "../_fns/custom_functions.js";
 import { handler } from "../_fns/custom_functions.js";
 import { debounce } from "../utils/debounce.js";
 import { saveLocalStorage } from "../hooks/save_local_storage.js";
+import { deleteTodoList } from "./delete_todo.js";
 
 export const initTodoList = () => {
   const dataRefs = {
@@ -13,9 +14,7 @@ export const initTodoList = () => {
 
   const { addTodoBtn, todoInput, todoList } = dataRefs;
 
-  const addTodo = (event) => {
-    // event.preventDefault();
-
+  const addTodo = () => {
     const inputValue = todoInput.value;
     let trash_icon = '<i class="icon fa-solid fa-trash"></i>'
 
