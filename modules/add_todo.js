@@ -35,7 +35,11 @@ export const initTodoList = () => {
       listItem.classList.add('list--items');
       newItem.classList.add('item');
       trashBtn.classList.add('btn', 'trash--btn');
-      trashBtn.innerHTML = trash_icon
+      trashBtn.innerHTML = trash_icon;
+
+      handler(trashBtn, 'click', deleteTodoList)
+
+      saveLocalStorage(inputValue);
   
       listItem.appendChild(newItem);
       listItem.appendChild(trashBtn);
