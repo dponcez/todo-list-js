@@ -7,4 +7,7 @@ module.exports = {
   coverageReporters: ["json", "lcov", "text", "clover"], // Formatos de reporte de cobertura
   moduleFileExtensions: ["js", "jsx", "json", "node"], // Extensiones de archivos soportadas
   verbose: true,
+  transform: {
+    "^.+\\.js$": "babel-jest", // Usa babel-jest para transpilar archivos .js
+  },
 };
