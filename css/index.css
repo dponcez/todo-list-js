@@ -74,6 +74,7 @@ button {
 
 .container {
   flex-direction: column;
+  position: relative;
   .header {
     padding-block: 0;
     & .heading {
@@ -107,11 +108,40 @@ button {
           margin-inline-end: var(--rd);
           border-radius: calc(var(--rd) * .45);
           color: var(--light-color);
-          font-weight: 700;
           background-color: hsl(22, 90%, 35%);
           box-shadow: .1vmin .2vmin .25vmin rgba(0,0,0,.85);
         }
       }
+    }
+  }
+
+  .alert {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
+    width: min(60vw, var(--sz));
+    height: auto;
+    position: absolute;
+    top: calc(15vw * 2);
+    background: var(--trash-color);
+    border-radius: var(--rd);
+    .alert--msg {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      padding: var(--pd);
+      font: normal clamp(calc(var(--fnt-sz) * .25), 5vw, var(--fnt-sz)) var(--fnt-abel);
+      color: var(--light-color);
+    }
+    .close--alert {
+      grid-column: 3;
+      grid-row: 1;
+      width: var(--pd);
+      height: var(--pd);
+      padding: var(--pd);
+      background: none;
+      border-radius: none;
+      box-shadow: none;
+      font-size: var(--pd)
     }
   }
 }
