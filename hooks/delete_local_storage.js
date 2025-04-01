@@ -7,7 +7,7 @@ export const deleteLocalStorage = (todo) => {
   }
 
   todos.forEach((item, index) => {
-    if(item === todo){
+    if(item === todo.textContent){
       todos.splice(index, 1)
     }
   })
