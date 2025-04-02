@@ -1,10 +1,14 @@
 import { handler } from "../_fns/custom_functions.js";
 import { deleteLocalStorage } from "../hooks/delete_local_storage.js";
 
-export const deleteTodoList = (e) => {
-  e.stopPropagation();
+export const deleteTodoList = (event) => {
+  const item = event.target;
+  const todoItem = item.closest('.list--items');
 
-  const item = e.target;
+  if(todoItem) todoItem.remove();
+
+  if(event.stopPropagation) event.stopPropagation();
+
   if(item.classList.contains('trash--btn')){
     const todo = item.parentElement;
     todo.classList.add('fall');
