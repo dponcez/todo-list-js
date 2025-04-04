@@ -86,7 +86,7 @@ button {
   }
 
   .form--container {
-    max-width: 22rem;
+    max-width: 26rem;
     & form {
       gap: 0 var(--rd);
       .todo--input { width: min(50vw, var(--sz)); }
@@ -122,7 +122,7 @@ button {
     width: min(60vw, var(--sz));
     height: auto;
     position: absolute;
-    top: calc(15vw * 2);
+    top: min(calc(15vw * 2), 14rem);
     background: var(--trash-color);
     border-radius: var(--rd);
     .alert--msg {
@@ -138,10 +138,11 @@ button {
       width: var(--pd);
       height: var(--pd);
       padding: var(--pd);
+      margin-block-start: var(--pd);
       background: none;
-      border-radius: none;
+      border-radius: 0;
       box-shadow: none;
-      font-size: var(--pd)
+      font-size: calc(var(--pd) * 1.5)
     }
   }
 }
