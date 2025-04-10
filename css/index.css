@@ -45,7 +45,7 @@ button {
   cursor: pointer; 
 }
 
-:where(.container, .header, .list--items, .btn, form) {
+:where(.container, .header, .list--items, .btn, form, .item) {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,17 +99,24 @@ button {
         margin-block-end: var(--rd);
         position: relative;
         transition: all 1000ms cubic-bezier(0.75, 1.75, 0.187, 0.67);
-        .item {
-          display: flex; 
+        .item { 
           list-style: none;
+          justify-content: flex-start;
           width: min(70vw, var(--sz));
+          height: 1.75lh;
           padding-inline: var(--rd);
           padding-block: calc(var(--rd) * .45);
           margin-inline-end: var(--rd);
           border-radius: calc(var(--rd) * .45);
           color: var(--light-color);
           background-color: hsl(22, 90%, 35%);
+          font-size: .85rem;
           box-shadow: .1vmin .2vmin .25vmin rgba(0,0,0,.85);
+        }
+        &.fall {
+          transform-origin: right bottom;
+          transform: rotateZ(-25deg) translate(-3rem, 6rem);
+          opacity: 0;
         }
       }
     }
@@ -145,10 +152,4 @@ button {
       font-size: calc(var(--pd) * 1.5)
     }
   }
-}
-
-.fall {
-  transform-origin: right bottom;
-  transform: rotateZ(-25deg) translate(-3rem, 6rem);
-  opacity: 0;
 }

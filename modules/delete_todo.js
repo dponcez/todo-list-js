@@ -5,9 +5,8 @@ export const deleteTodoList = (event) => {
   const item = event.target;
   const todoItem = item.closest('.list--items');
 
-  if(todoItem) todoItem.remove();
-
   if(event.stopPropagation) event.stopPropagation();
+  if(todoItem) todoItem.remove();
 
   if(item.classList.contains('trash--btn')){
     const todo = item.parentElement;
