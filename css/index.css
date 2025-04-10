@@ -92,8 +92,10 @@ button {
       .todo--input { width: min(50vw, var(--sz)); }
     }
     .todo--list {
+      height: 24rem;
       padding: 0;
       padding-block-start: var(--pd);
+      overflow: auto;
       .list--items { 
         justify-content: space-around;
         margin-block-end: var(--rd);
