@@ -5,6 +5,10 @@ import { debounce } from "../utils/debounce.js";
 import { saveLocalStorage } from "../hooks/save_local_storage.js";
 import { deleteTodoList } from "./delete_todo.js";
 
+const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
+}
+
 export const initTodoList = () => {
   const dataRefs = {
     addTodoBtn: selector('[data-submit]'),
@@ -29,7 +33,11 @@ export const initTodoList = () => {
   
       const { listItem, newItem, trashBtn } = htmlRefs;
 
-      newItem.textContent = inputValue.toUpperCase();
+      if(inputValue.length <= 6){
+        newItem.textContent = inputValue.toUpperCase();
+      }else{
+        newItem.textContent = capitalizeFirstLetter(inputValue)
+      }
   
       listItem.classList.add('list--items');
       newItem.classList.add('item');
