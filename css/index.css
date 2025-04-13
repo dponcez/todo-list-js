@@ -1,6 +1,7 @@
 :root {
   --sz: 100%;
-  --svh: 100svh;
+  --hgt: 2.5rem;
+  --svh: 100dvh;
   --pd: 1.125rem;
   --rd: .5rem;
   --unit: 20;
@@ -11,6 +12,7 @@
   --trash-color: hsl(360 67% 51%);
   --dark-color: hsl(227 55% 12%);
   --light-color: hsl(210 11% 96%);
+  --light-gray: hsl(192, 15%, 94%);
 }
 
 /* remove animation for people who've turned them off */
@@ -36,6 +38,7 @@ body {
   color: var(--dark-color);
   --webkit-font-smoothing: antialiased;
   --moz-osx-font-smoothing: greyscale;
+  background: var(--light-gray)
 }
 
 button {
@@ -52,9 +55,11 @@ button {
 }
 :where(.container, .form--container, .header, .list--items, .todo--input, .item) { width: var(--sz) }
 
-.todo { font: normal var(--pd) var(--fnt-abel) }
+.todo { font: normal calc(var(--pd) * 1.2) var(--fnt-abel) }
 
 .btn {
+  width: 5rem;
+  height: var(--hgt);
   padding: calc(var(--pd) * .285) var(--pd);
   font-size: var(--pd);
   color: var(--light-color);
@@ -63,13 +68,28 @@ button {
   &:active { transform: scale(.99); }
 }
 
-.add--btn { background-color: var(--add-color); }
+.add--btn { 
+  background: linear-gradient(
+    180deg,
+    hsl(195, 87%, 58%),
+    hsl(201, 79%, 50%),
+    var(--add-color)
+  );
+  box-shadow: 1.25vmin 1.25vmin .25lh hsl(195, 87%,58%) inset, 1vmin 1vmin 0 0 rgba(0,0,0,.7) inset, -1.25vmin -1.25vmin .25lh hsl(206,100%,37%) inset, -1vmin -1vmin 0 0 rgba(0,0,0,.7) inset, 0 0 0 .125lh rgba(0,0,0,.75);
+  text-shadow: .25vmin .35vmin .05lh rgba(0,0,0,.7);
+}
 
 .trash--btn {
   --darken: hsl(0 86% 37%);
   padding-block: .35rem; 
-  background-color: var(--trash-color);
-  &:hover { background-color: var(--darken) } 
+  background: linear-gradient(
+    180deg,
+    hsl(360, 77%, 58%),
+    var(--trash-color),
+    var(--darken)
+  );
+  box-shadow: 1.25vmin 1.25vmin .25lh hsl(360, 77%, 58%) inset, 1vmin 1vmin 0 0 rgba(0,0,0,.7) inset, -1.25vmin -1.25vmin .25lh hsl(371, 98%, 39%) inset, -1vmin -1vmin 0 0 rgba(0,0,0,.7) inset, 0 0 0 .125lh rgba(0,0,0,.75);
+  text-shadow: .25vmin .35vmin .05lh rgba(0,0,0,.7); 
 }
 
 .container {
@@ -89,13 +109,23 @@ button {
     max-width: 26rem;
     & form {
       gap: 0 var(--rd);
-      .todo--input { width: min(50vw, var(--sz)); }
+      .todo--input { 
+        width: min(50vw, var(--sz));
+        height: var(--hgt);
+        padding-inline-start: var(--rd);
+        background: var(--light-gray);
+        box-shadow: .125vmin .125vmin .1lh rgba(0,0,0,.5) inset, -.25vmin -.25vmin .15lh rgba(255,255,255,.75) inset;
+        border: none;
+        border-radius: calc(var(--rd) * .5);
+        &:focus { 
+          outline: none;
+          box-shadow: 0 0 .15lh rgba(0,0,0, .25) inset;
+        } 
+      }
     }
     .todo--list {
-      height: 24rem;
       padding: 0;
-      padding-block-start: var(--pd);
-      overflow: auto;
+      padding-block-start: var(--rd);
       .list--items { 
         justify-content: space-around;
         margin-block-end: var(--rd);
@@ -105,14 +135,14 @@ button {
           list-style: none;
           justify-content: flex-start;
           width: min(70vw, var(--sz));
-          height: 1.75lh;
+          height: var(--hgt);
           padding-inline: var(--rd);
           padding-block: calc(var(--rd) * .45);
           margin-inline-end: var(--rd);
           border-radius: calc(var(--rd) * .45);
           color: var(--light-color);
-          background-color: hsl(22, 90%, 35%);
-          font-size: .85rem;
+          background-color: hsl(371, 98%, 39%);
+          font-size: .95rem;
           box-shadow: .1vmin .2vmin .25vmin rgba(0,0,0,.85);
         }
         &.fall {
