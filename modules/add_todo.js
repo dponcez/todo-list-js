@@ -19,6 +19,7 @@ export const initTodoList = () => {
   const container = selector('.container');
 
   const { addTodoBtn, todoInput, todoList } = dataRefs;
+  const DEGREES = 180;
 
   const addTodo = () => {
     const inputValue = todoInput.value.trim();
@@ -55,12 +56,12 @@ export const initTodoList = () => {
       todoInput.focus();
     }else{
       try{
-        const template = createElement("div");
+        const template = createElement('div');
 
-        template.classList.add("alert");
+        template.classList.add('alert');
         container.appendChild(template);
 
-        const alert = selector(".alert");
+        const alert = selector('.alert');
 
         alert.innerHTML = `
           <p class="alert--msg">!Task cannot be empty¡</p>
@@ -69,16 +70,22 @@ export const initTodoList = () => {
           </button>
         `;
 
-        const closeAlertBtn = selector(".close--alert");
+        const closeAlertBtn = selector('.close--alert');
 
-        handler(closeAlertBtn, "click", () => {
+        handler(closeAlertBtn, 'click', () => {
           todoInput.disabled = false;
           addTodoBtn.disabled = false;
 
-          addTodoBtn.style.cursor = "pointer";
-          addTodoBtn.style.pointerEvents = "all";
-          addTodoBtn.style.backgroundColor = "var(--add-color)";
-
+          addTodoBtn.style.cursor = 'pointer';
+          addTodoBtn.style.pointerEvents = 'all';
+          addTodoBtn.style.background = `linear-gradient(
+            ${DEGREES}deg,
+            hsl(195, 87%, 58%),
+            hsl(201, 79%, 50%),
+            hsl(198, 78%, 41%)
+          )`;
+          addTodoBtn.style.boxShadow = `1.25vmin 1.25vmin 0.25lh hsl(195, 87%, 50%) inset, 1vmin 1vmin 0 0 rgba(0,0,0,.7) inset, -1.25vmin -1.25vmin 0.25lh hsl(210, 100%, 34%)inset, -1vmin -1vmin 0 0 rgba(0,0,0,.7) inset, 0 0 0 0.125lh rgba(0,0,0,.75)`;
+          
           alert.remove();
           todoInput.focus();
         });
@@ -86,13 +93,20 @@ export const initTodoList = () => {
         todoInput.disabled = true;
         addTodoBtn.disabled = true;
 
-        addTodoBtn.style.cursor = "default";
-        addTodoBtn.style.pointerEvents = "none";
-        addTodoBtn.style.backgroundColor = "hsl(202, 18%, 47%)";
+        addTodoBtn.style.cursor = 'default';
+        addTodoBtn.style.pointerEvents = 'none';
+        addTodoBtn.style.background = `linear-gradient(
+          ${DEGREES}deg,
+          hsl(213, 7.20%, 70%),
+          hsl(210, 18%, 53%),
+          hsl(202, 18%, 47%)
+        )`;
+        addTodoBtn.style.boxShadow = `1.25vmin 1.25vmin 0.25lh hsl(213, 7.20%, 70%) inset, 1vmin 1vmin 0 0 rgba(0,0,0,.7) inset, -1.25vmin -1.25vmin 0.25lh hsl(210, 18%, 30%) inset, -1vmin -1vmin 0 0 rgba(0,0,0,.7) inset, 0 0 0 0.125lh rgba(0,0,0,.75)`; 
       }catch(error){
         console.log(`Error while handling alert: ${error.message}`)
       }
     }
   }
-    handler(addTodoBtn, 'click', debounce(addTodo, 300));
+  
+  handler(addTodoBtn, 'click', debounce(addTodo, 300));
 }
