@@ -34,7 +34,7 @@ export const initTodoList = () => {
   
       const { listItem, newItem, trashBtn } = htmlRefs;
 
-      if(inputValue.length <= 6){
+      if(inputValue.length <= 5){
         newItem.textContent = inputValue.toUpperCase();
       }else{
         newItem.textContent = capitalizeFirstLetter(inputValue)
