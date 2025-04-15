@@ -44,7 +44,7 @@ describe('addTodo', () => {
 
     const todos = todoList.querySelectorAll('li');
     expect(todos).toHaveLength(1);
-    expect(todos[0].textContent).toBe('BUY GROCERIES');
+    expect(todos[0].textContent).toBe('Buy groceries');
   });
 
   test('should not add an empty todo when the button is clicked', () => {
@@ -65,6 +65,6 @@ describe('addTodo', () => {
 
     const todos = todoList.querySelectorAll('li');
     expect(todos).toHaveLength(1);
-    expect(todos[0].textContent).toBe('LEARN JAVASCRIPT');
+    expect(todos[0].textContent).toBe('Learn javascript');
   });
 });
