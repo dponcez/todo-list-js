@@ -29,10 +29,11 @@ export const initTodoList = () => {
       const htmlRefs = {
         listItem: createElement('div'),
         newItem: createElement('li'),
-        trashBtn: createElement('button')
+        trashBtn: createElement('button'),
+        inputCheck: createElement('input')
       }
   
-      const { listItem, newItem, trashBtn } = htmlRefs;
+      const { listItem, newItem, trashBtn, inputCheck } = htmlRefs;
 
       if(inputValue.length <= 5){
         newItem.textContent = inputValue.toUpperCase();
@@ -42,13 +43,36 @@ export const initTodoList = () => {
   
       listItem.classList.add('list--items');
       newItem.classList.add('item');
+      inputCheck.classList.add('check');
       trashBtn.classList.add('btn', 'trash--btn');
+
+      inputCheck.type = 'checkbox';
       trashBtn.innerHTML = trash_icon;
+
+      handler(inputCheck, 'input', (event) => {
+        const check = event.target.checked;
+        const item = event.target.parentElement.querySelector('.item');
+
+        check ?
+          item.classList.add('line--through') :
+          item.classList.remove('line--through')
+        
+        // if(check){
+        //   item.style.textDecoration = 'line-through';
+        //   item.style.color = 'hsl(209, 88.00%, 19.60%)';
+        //   item.style.opacity = '0.5';
+        // }else{
+        //   item.style.textDecoration = 'none';
+        //   item.style.color = "hsl(210 11% 96%)";
+        //   item.style.opacity = '1';
+        // }
+      })
 
       handler(trashBtn, 'click', deleteTodoList);
       saveLocalStorage(inputValue);
-  
-      listItem.appendChild(newItem)
+      
+      listItem.appendChild(inputCheck);
+      listItem.appendChild(newItem);
       listItem.appendChild(trashBtn);
       todoList.appendChild(listItem);
 
