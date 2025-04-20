@@ -56,16 +56,6 @@ export const initTodoList = () => {
         check ?
           item.classList.add('line--through') :
           item.classList.remove('line--through')
-        
-        // if(check){
-        //   item.style.textDecoration = 'line-through';
-        //   item.style.color = 'hsl(209, 88.00%, 19.60%)';
-        //   item.style.opacity = '0.5';
-        // }else{
-        //   item.style.textDecoration = 'none';
-        //   item.style.color = "hsl(210 11% 96%)";
-        //   item.style.opacity = '1';
-        // }
       })
 
       handler(trashBtn, 'click', deleteTodoList);
