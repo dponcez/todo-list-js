@@ -30,10 +30,10 @@ export const initTodoList = () => {
         listItem: createElement('div'),
         newItem: createElement('li'),
         trashBtn: createElement('button'),
-        inputCheck: createElement('input')
+        checkTask: createElement('input')
       }
   
-      const { listItem, newItem, trashBtn, inputCheck } = htmlRefs;
+      const { listItem, newItem, trashBtn, checkTask } = htmlRefs;
 
       if(inputValue.length <= 5){
         newItem.textContent = inputValue.toUpperCase();
@@ -43,13 +43,13 @@ export const initTodoList = () => {
   
       listItem.classList.add('list--items');
       newItem.classList.add('item');
-      inputCheck.classList.add('check');
+      checkTask.classList.add('check');
       trashBtn.classList.add('btn', 'trash--btn');
 
-      inputCheck.type = 'checkbox';
+      checkTask.type = 'checkbox';
       trashBtn.innerHTML = trash_icon;
 
-      handler(inputCheck, 'input', (event) => {
+      handler(checkTask, 'input', (event) => {
         const check = event.target.checked;
         const item = event.target.parentElement.querySelector('.item');
 
@@ -61,7 +61,7 @@ export const initTodoList = () => {
       handler(trashBtn, 'click', deleteTodoList);
       saveLocalStorage(inputValue);
       
-      listItem.appendChild(inputCheck);
+      listItem.appendChild(checkTask);
       listItem.appendChild(newItem);
       listItem.appendChild(trashBtn);
       todoList.appendChild(listItem);
@@ -71,6 +71,9 @@ export const initTodoList = () => {
     }else{
       try{
         const template = createElement('div');
+
+        const trash_button = selector('.trash--btn');
+        const check_task = selector('.check');
 
         template.classList.add('alert');
         container.appendChild(template);
@@ -89,7 +92,11 @@ export const initTodoList = () => {
         handler(closeAlertBtn, 'click', () => {
           todoInput.disabled = false;
           addTodoBtn.disabled = false;
+          check_task.disabled = false;
+          trash_button.disabled = false;
 
+          trash_button.style.cursor = 'pointer';
+          trash_button.style.pointerEvents = 'all';
           addTodoBtn.style.cursor = 'pointer';
           addTodoBtn.style.pointerEvents = 'all';
           addTodoBtn.style.background = `linear-gradient(
@@ -106,8 +113,11 @@ export const initTodoList = () => {
 
         todoInput.disabled = true;
         addTodoBtn.disabled = true;
+        check_task.disabled = true;
+        trash_button.disabled = true;
 
-        addTodoBtn.style.cursor = 'default';
+        trash_button.style.cursor = 'not-allowed';
+        addTodoBtn.style.cursor = 'not-allowed';
         addTodoBtn.style.pointerEvents = 'none';
         addTodoBtn.style.background = `linear-gradient(
           ${DEGREES}deg,
