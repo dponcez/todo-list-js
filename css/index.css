@@ -38,7 +38,11 @@ body {
   color: var(--dark-color);
   --webkit-font-smoothing: antialiased;
   --moz-osx-font-smoothing: greyscale;
-  background: var(--light-gray)
+  background: var(--light-gray);
+  &.dark--mode {
+    color: var(--light-color);
+    background: var(--dark-color)
+  }
 }
 
 button {
@@ -99,17 +103,25 @@ button {
   position: relative;
   background: var(--light-gray);
   border-radius: var(--hgt);
-  box-shadow: .125vmin .125vmin .1lh rgba(0,0,0,.5) inset, -.25vmin -.25vmin .15lh rgba(197, 188, 188, 0.75) inset;
+  box-shadow: .25vmin .25vmin .125lh rgba(34, 3, 3, 0.5) inset, -.15vmin -.15vmin .05lh rgba(250, 249, 249, 0.5) inset;
   &::before {
     content: '';
-    position: absolute;
     width: 1.5rem;
     height: 1.5rem;
-    background: var(--dark-color);
-    border-radius: var(--hgt);
+    display: block;
+    position: absolute;
     top: .125rem;
     right: .125rem;
+    background: var(--dark-color);
+    box-shadow: .5vmin .5vmin .25lh hsl(227, 60%,12%) inset, .25vmin .25vmin 0 0 rgba(0,0,0,.7) inset, -.5vmin -.5vmin .25lh hsl(205, 87%, 17%) inset, 0 0 0 .125lh rgba(255, 255, 255, 0.75) inset;
+    border-radius: var(--hgt);
     transition: all 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  &.active { background: var(--dark-color); }
+  &.active::before {
+    left: .125rem;
+    background: hsl(360, 77%, 60%);
+    box-shadow: .5vmin .5vmin .25lh hsl(360, 77%,60%) inset, .25vmin .25vmin 0 0 rgba(0,0,0,.7) inset, -.5vmin -.5vmin .25lh hsl(5, 72%, 43%) inset, 0 0 0 .125lh rgba(0, 0, 0, 0.75) inset;
   }
 }
 
