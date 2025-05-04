@@ -97,7 +97,7 @@ button {
   text-shadow: .25vmin .35vmin .05lh rgba(0,0,0,.7); 
 }
 
-.dark--mode__toggle {
+.dark--mode__button {
   width: 3rem;
   height: 1.75rem;
   position: relative;
