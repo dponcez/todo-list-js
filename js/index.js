@@ -1,2 +1,4 @@
 import {initTodoList} from '../modules/add_todo.js';
-initTodoList()
+import { handleDarkMode } from '../hooks/theme.js';
+initTodoList();
+handleDarkMode('dark--mode', 'active', '[data-state="dark-mode"]', 'body')
