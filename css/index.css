@@ -97,10 +97,7 @@ button {
     var(--darken)
   );
   box-shadow: 1.25vmin 1.25vmin .25lh hsl(360, 77%, 58%) inset, 1vmin 1vmin 0 0 rgba(0,0,0,.7) inset, -1.25vmin -1.25vmin .25lh hsl(371, 98%, 39%) inset, -1vmin -1vmin 0 0 rgba(0,0,0,.7) inset, 0 0 0 .125lh rgba(0,0,0,.75);
-  text-shadow: .25vmin .35vmin .05lh rgba(0,0,0,.7);
-  &.dark--mode {
-    box-shadow: 1.25vmin 1.25vmin .25lh hsl(360, 77%, 58%) inset, 1vmin 1vmin 0 0 rgba(0,0,0,.7) inset, -1.25vmin -1.25vmin .25lh hsl(371, 98%, 39%) inset, -1vmin -1vmin 0 0 rgba(0,0,0,.7) inset, 0 0 0 .125lh rgba(255,255,255,1);
-  } 
+  text-shadow: .25vmin .35vmin .05lh rgba(0,0,0,.7); 
 }
 
 .dark--mode__button {
