@@ -5,12 +5,11 @@ export const handleDarkMode = (dark, active, state, main) => {
   const htmlRefs = {
     darkModeButton: selector(`${state}`),
     body: selector(`${main}`),
-    submitBtn: selector('[data-submit]'),
-    trashBtn: selector('.trash--btn')
+    submitBtn: selector('[data-submit]')
   }
 
-  const { darkModeButton, body, submitBtn, trashBtn } = htmlRefs;
-
+  const { darkModeButton, body, submitBtn } = htmlRefs;
+  
   handler(darkModeButton, 'click', (event) => {
     const target = event.target;
 
@@ -18,9 +17,9 @@ export const handleDarkMode = (dark, active, state, main) => {
     body.classList.toggle(`${dark}`);
 
     submitBtn.classList.toggle(`${dark}`);
-    trashBtn.classList.toggle(`${dark}`);
   
     const storage = (key, value) => localStorage.setItem(key, value);
+
     body.classList.contains('dark--mode') ? 
       storage('theme', 'true') :
       storage('theme', 'false')
@@ -34,13 +33,11 @@ export const handleDarkMode = (dark, active, state, main) => {
       body.classList.add(`${dark}`);
 
       submitBtn.classList.add(`${dark}`);
-      trashBtn.classList.add(`${dark}`);
     }else{
       darkModeButton.classList.remove(`${active}`);
       body.classList.remove(`${dark}`);
 
       submitBtn.classList.remove(`${dark}`);
-      trashBtn.classList.remove(`${dark}`);
     }
   }
 
