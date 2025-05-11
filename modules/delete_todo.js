@@ -7,6 +7,10 @@ export const deleteTodoList = (event) => {
 
   if(event.stopPropagation) event.stopPropagation();
 
+  if(todoItem){
+    todoItem.remove()
+  }
+
   if(item.classList.contains('trash--btn')){
     const todo = item.parentElement;
     const checkbox = todoItem.querySelector('input[type="checkbox"]');
