@@ -3,17 +3,20 @@ const { deleteTodoList } = require('../modules/delete_todo.js');
 describe('deleteTodoList', () => {
   let todoItem;
   let deleteButton;
+  let checkItem;
 
   beforeEach(() => {
     // Configura el DOM simulado
     document.body.innerHTML = `
       <div class="list--items">
+        <input type="checkbox" class="check"/>
         <li class="item">Test Todo</li>
         <button class="btn trash--btn"></button>
       </div>
     `;
 
     // Obtén referencias a los elementos del DOM
+    checkItem = document.querySelector('.check');
     todoItem = document.querySelector('.list--items');
     deleteButton = document.querySelector('.trash--btn');
   });
