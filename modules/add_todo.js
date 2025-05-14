@@ -72,9 +72,6 @@ export const initTodoList = () => {
       try{
         const template = createElement('div');
 
-        const trash_button = selector('.trash--btn');
-        const check_task = selector('.check');
-
         template.classList.add('alert');
         container.appendChild(template);
 
@@ -92,11 +89,7 @@ export const initTodoList = () => {
         handler(closeAlertBtn, 'click', () => {
           todoInput.disabled = false;
           addTodoBtn.disabled = false;
-          check_task.disabled = false;
-          trash_button.disabled = false;
 
-          trash_button.style.cursor = 'pointer';
-          trash_button.style.pointerEvents = 'all';
           addTodoBtn.style.cursor = 'pointer';
           addTodoBtn.style.pointerEvents = 'all';
           addTodoBtn.style.background = `linear-gradient(
@@ -113,10 +106,7 @@ export const initTodoList = () => {
 
         todoInput.disabled = true;
         addTodoBtn.disabled = true;
-        check_task.disabled = true;
-        trash_button.disabled = true;
 
-        trash_button.style.cursor = 'not-allowed';
         addTodoBtn.style.cursor = 'not-allowed';
         addTodoBtn.style.pointerEvents = 'none';
         addTodoBtn.style.background = `linear-gradient(
