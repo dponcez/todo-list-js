@@ -1,9 +1,13 @@
 import { handler } from "../_fns/custom_functions.js";
 import { deleteLocalStorage } from "../hooks/delete_local_storage.js";
+import { createElement } from '../_fns/custom_functions.js';
+import { selector } from '../_fns/custom_functions.js';
 
 export const deleteTodoList = (event) => {
   const item = event.target;
   const todoItem = item.closest('.list--items');
+  const container = selector('.container');
+  console.log(container)
 
   if(!todoItem) return; 
   if(event.stopPropagation) event.stopPropagation();
@@ -13,7 +17,21 @@ export const deleteTodoList = (event) => {
     const checkbox = todoItem.querySelector('input[type="checkbox"]');
 
     if(!checkbox.checked){
-      alert('You must check the task before deleting it!');
+      const template = createElement('div');
+      template.classList.add('delete--container');
+
+      container.appendChild(template);
+      const alert = selector('.delete--container');
+
+      alert.innerHTML = `
+        <div class="alert--container">
+          <p class="alert--text">You must check the task before deleting it!</p>
+          <button class="btn alert--btn">OK</button>
+        </div>
+      `;
+
+      const closeAlert = selector('.alert--btn');
+      handler(closeAlert, 'click', () => alert.remove());
       return
     }else{
       todo.classList.add('fall');
