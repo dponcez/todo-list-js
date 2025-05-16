@@ -1,42 +1,68 @@
 const { deleteTodoList } = require('../modules/delete_todo.js');
 
 describe('deleteTodoList', () => {
-  let todoItem;
-  let deleteButton;
-  let checkItem;
+  let container, todoItem, deleteButton, checkbox;
 
   beforeEach(() => {
-    // Configura el DOM simulado
     document.body.innerHTML = `
-      <div class="list--items">
-        <input type="checkbox" class="check"/>
-        <li class="item">Test Todo</li>
-        <button class="btn trash--btn"></button>
+      <div class="container">
+        <div class="list--items">
+          <input type="checkbox" class="check"/>
+          <li class="item">Test Todo</li>
+          <button class="btn trash--btn"></button>
+        </div>
       </div>
     `;
-
-    // Obtén referencias a los elementos del DOM
-    checkItem = document.querySelector('.check');
+    container = document.querySelector('.container');
     todoItem = document.querySelector('.list--items');
     deleteButton = document.querySelector('.trash--btn');
+    checkbox = document.querySelector('.check');
   });
 
-  test('should remove the todo item when the delete button is clicked', () => {
-    deleteTodoList({ target: deleteButton });
+  test('should not delete anything if the event is not triggered by the delete button', () => {
+    const event = { 
+      target: { 
+        classList: { contains: () => false }, 
+        closest: jest.fn(), 
+      }, 
+      stopPropagation: jest.fn() 
+    };
+    deleteTodoList(event);
 
-    // Verifica que el elemento ya no esté en el documento
-    expect(document.body.contains(todoItem)).toBe(false);
+    // No debe eliminar nada
+    expect(container.querySelector('.list--items')).not.toBeNull();
+  });
+
+  test('displays an alert if you try to delete without checking the checkbox', () => {
+    checkbox.checked = false;
+    deleteTodoList({ target: deleteButton, stopPropagation: jest.fn() });
+
+    const alert = document.querySelector('.delete--container');
+    expect(alert).not.toBeNull();
+    expect(alert.textContent).toMatch(/must check the task/i);
+
+    // Simula click en el botón OK de la alerta
+    const okBtn = document.querySelector('.alert--btn');
+    okBtn.click();
+    expect(document.querySelector('.delete--container')).toBeNull();
+  });
+
+  test('delete the task if the checkbox is checked', () => {
+    checkbox.checked = true;
+    deleteTodoList({ target: deleteButton, stopPropagation: jest.fn() });
+  
+    // El elemento debe ser eliminado del DOM
+    expect(container.querySelector('.list--items')).toBeNull();
   });
 
   test('should stop propagation when the delete button is clicked', () => {
     const event = {
       target: deleteButton,
       stopPropagation: jest.fn()
-    }
+    };
 
     deleteTodoList(event);
 
-    // Verifca que stopPropagation haya sido llamado
     expect(event.stopPropagation).toHaveBeenCalled();
-  });
-})
+  })
+});
