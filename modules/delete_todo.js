@@ -3,10 +3,11 @@ import { deleteLocalStorage } from "../hooks/delete_local_storage.js";
 import { createElement } from '../_fns/custom_functions.js';
 import { selector } from '../_fns/custom_functions.js';
 
+const container = selector('.container');
+
 export const deleteTodoList = (event) => {
   const item = event.target;
   const todoItem = item.closest('.list--items');
-  const container = selector('.container');
   console.log(container)
 
   if(!todoItem) return; 
