@@ -43,6 +43,43 @@ body {
     color: var(--light-color);
     background: var(--dark-color)
   }
+
+  .delete--container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
+    gap: .25lh;
+    width: min(60vw, 30lh);
+    height: 9lh;
+    padding-inline: 1rem;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+    background: var(--trash-color);
+    border-radius: .5lh;
+    box-shadow: .5vmin .5vmin 0 0 rgba(0, 0, 0, .25), 0 0 0 .25lh rgba(255, 255, 255, .5) inset; 
+    .alert--text,
+    .alert--btn { 
+      color: var(--light-color);
+      font-family: var(--fnt-play);
+      font-weight: 600
+    }
+    .alert--text {
+      grid-column: 1 / -1;
+      font-size: calc(var(--pd) * 1.125);
+    }
+    .alert--btn {
+      grid-column: 3;
+      font-size: var(--pd);
+      background: linear-gradient(
+        45deg, 
+        hsl(0deg 56.57% 40.83%), 
+        hsl(10deg, 65.43%, 50.08%)
+      );
+      box-shadow: 0 0 0 .1lh rgba(255,255,255, .5) inset, .5vmin .5vmin 0 0 rgba(0, 0, 0, .25);
+    }
+  }
 }
 
 button {
