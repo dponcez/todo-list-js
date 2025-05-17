@@ -1,14 +1,11 @@
 import { handler } from "../_fns/custom_functions.js";
 import { deleteLocalStorage } from "../hooks/delete_local_storage.js";
 import { createElement } from '../_fns/custom_functions.js';
-import { selector } from '../_fns/custom_functions.js';
 
 export const deleteTodoList = (event) => {
   const item = event.target;
   const todoItem = item.closest('.list--items');
   const todo = item.parentElement;
-
-  // if(!todoItem) return; 
   if(!item.classList.contains('trash--btn')) return;
   if(event.stopPropagation) event.stopPropagation();
 
@@ -29,7 +26,7 @@ export const deleteTodoList = (event) => {
       alertBtn.classList.add('btn', 'alert--btn');
 
       alertText.textContent = 'You must check the task before deleting it!';
-      alertBtn.textConten = 'OK';
+      alertBtn.textContent = 'Close';
 
       handler(alertBtn, 'click', () => template.remove());
       template.appendChild(alertText);
@@ -40,6 +37,7 @@ export const deleteTodoList = (event) => {
 
     return
   }
+  
   todo.classList.add('fall');
   todoItem.remove();
 
