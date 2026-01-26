@@ -13,57 +13,60 @@ export const initTodoList = () => {
   const dataRefs = {
     addTodoBtn: selector('[data-submit]'),
     todoInput: selector('[data-input]'),
-    todoList: selector('[data-list]')
+    todoList: selector('[data-list]'),
+    form: selector('[data-form]')
   }
 
   const container = selector('.container');
 
-  const { addTodoBtn, todoInput, todoList } = dataRefs;
+  const { addTodoBtn, todoInput, todoList, form } = dataRefs;
   const DEGREES = 180;
 
   const addTodo = () => {
     const inputValue = todoInput.value.trim();
     let trash_icon = '<i class="icon fa-solid fa-trash"></i>';
-    
+
     if(inputValue){
-      const htmlRefs = {
-        listItem: createElement('div'),
-        newItem: createElement('li'),
+      const createHTMLRefs = {
+        listItem: createElement('li'),
+        item: createElement('div'),
+        info: createElement('p'),
         trashBtn: createElement('button'),
         checkTask: createElement('input')
       }
-  
-      const { listItem, newItem, trashBtn, checkTask } = htmlRefs;
 
-      if(inputValue.length <= 5){
-        newItem.textContent = inputValue.toUpperCase();
-      }else{
-        newItem.textContent = capitalizeFirstLetter(inputValue)
-      }
-  
+      const { listItem, item, info, trashBtn, checkTask } = createHTMLRefs;
+
+      inputValue.length < 5 ?
+        info.textContent = inputValue.toUpperCase() :
+        info.textContent = capitalizeFirstLetter(inputValue);
+
       listItem.classList.add('list--items');
-      newItem.classList.add('item');
-      checkTask.classList.add('check');
+      item.classList.add('item');
+      info.classList.add('info');
       trashBtn.classList.add('btn', 'trash--btn');
+      checkTask.classList.add('check');
 
       checkTask.type = 'checkbox';
       trashBtn.innerHTML = trash_icon;
 
-      handler(checkTask, 'input', (event) => {
+      handler(checkTask, 'input', debounce((event) => {
         const check = event.target.checked;
         const item = event.target.parentElement.querySelector('.item');
 
-        check ?
+        check ? 
           item.classList.add('line--through') :
           item.classList.remove('line--through')
-      })
+      }));
 
       handler(trashBtn, 'click', deleteTodoList);
       saveLocalStorage(inputValue);
-      
+
       listItem.appendChild(checkTask);
-      listItem.appendChild(newItem);
+      item.appendChild(info);
+      listItem.appendChild(item);
       listItem.appendChild(trashBtn);
+
       todoList.appendChild(listItem);
 
       todoInput.value = '';
@@ -71,21 +74,18 @@ export const initTodoList = () => {
     }else{
       try{
         const template = createElement('div');
-
         template.classList.add('alert');
         container.appendChild(template);
 
         const alert = selector('.alert');
-
         alert.innerHTML = `
           <p class="alert--msg">!Task cannot be empty¡</p>
-          <button class="btn close--alert">
+          <button class="btn close--alert" data-close-alert>
             <i class="fa-solid fa-xmark"></i>
           </button>
         `;
 
-        const closeAlertBtn = selector('.close--alert');
-
+        const closeAlertBtn = selector('[data-close-alert]');
         handler(closeAlertBtn, 'click', () => {
           todoInput.disabled = false;
           addTodoBtn.disabled = false;
@@ -98,7 +98,13 @@ export const initTodoList = () => {
             hsl(201, 79%, 50%),
             hsl(198, 78%, 41%)
           )`;
-          addTodoBtn.style.boxShadow = `1.25vmin 1.25vmin 0.25lh hsl(195, 87%, 50%) inset, 1vmin 1vmin 0 0 rgba(0,0,0,.7) inset, -1.25vmin -1.25vmin 0.25lh hsl(210, 100%, 34%)inset, -1vmin -1vmin 0 0 rgba(0,0,0,.7) inset, 0 0 0 0.125lh rgba(0,0,0,.75)`;
+          addTodoBtn.style.boxShadow = `
+            1.25vmin 1.25vmin 0.25lh hsl(195, 87%, 50%) inset, 
+            1vmin 1vmin 0 0 rgba(0,0,0,.7) inset, 
+            -1.25vmin -1.25vmin 0.25lh hsl(210, 100%, 34%)inset, 
+            -1vmin -1vmin 0 0 rgba(0,0,0,.7) inset, 
+            0 0 0 0.125lh rgba(0,0,0,.75)
+          `;
           
           alert.remove();
           todoInput.focus();
@@ -115,12 +121,19 @@ export const initTodoList = () => {
           hsl(210, 18%, 53%),
           hsl(202, 18%, 47%)
         )`;
-        addTodoBtn.style.boxShadow = `1.25vmin 1.25vmin 0.25lh hsl(213, 7.20%, 70%) inset, 1vmin 1vmin 0 0 rgba(0,0,0,.7) inset, -1.25vmin -1.25vmin 0.25lh hsl(210, 18%, 30%) inset, -1vmin -1vmin 0 0 rgba(0,0,0,.7) inset, 0 0 0 0.125lh rgba(0,0,0,.75)`; 
+        addTodoBtn.style.boxShadow = `
+          1.25vmin 1.25vmin 0.25lh hsl(213, 7.20%, 70%) inset, 
+          1vmin 1vmin 0 0 rgba(0,0,0,.7) inset, 
+          -1.25vmin -1.25vmin 0.25lh hsl(210, 18%, 30%) inset, 
+          -1vmin -1vmin 0 0 rgba(0,0,0,.7) inset, 
+          0 0 0 0.125lh rgba(0,0,0,.75)
+        `;
       }catch(error){
-        console.log(`Error while handling alert: ${error.message}`)
+        console.log(`Error handling alert message: ${error.message}`)
       }
     }
   }
-  
+
   handler(addTodoBtn, 'click', debounce(addTodo, 300));
+  handler(form, 'submit', event => event.preventDefault());
 }
