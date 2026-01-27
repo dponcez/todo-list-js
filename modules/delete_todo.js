@@ -1,15 +1,16 @@
-import { handler } from "../_fns/custom_functions.js";
+import { handler, selector, createElement } from "../_fns/custom_functions.js";
 import { deleteLocalStorage } from "../hooks/delete_local_storage.js";
-import { createElement } from '../_fns/custom_functions.js';
 
 export const deleteTodoList = (event) => {
   const item = event.target;
   const todoItem = item.closest('.list--items');
   const todo = item.parentElement;
+  
   if(!item.classList.contains('trash--btn')) return;
   if(event.stopPropagation) event.stopPropagation();
-
+  
   const checkbox = todoItem.querySelector('input[type="checkbox"]');
+  const trashBtn = todoItem.querySelector('.trash--btn');
 
   if(!checkbox.checked){
     if(!document.querySelector('.delete--container')){
@@ -37,11 +38,14 @@ export const deleteTodoList = (event) => {
 
     return
   }
-  
-  todo.classList.add('fall');
-  todoItem.remove();
+
+  if(todoItem){
+    todo.classList.add('fall');
+    trashBtn.classList.add('active');
+    checkbox.classList.add('active');
+  }
 
   deleteLocalStorage(todo);
 
-  handler(todo, 'transitionend', () => todo.remove());
+  handler(todo, 'animationend', () => todoItem.remove());
 }
