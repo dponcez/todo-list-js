@@ -12,19 +12,21 @@
  * log("Hello") // will run after a 500 milliseconds
  */
 
-export function debounce(fn, wait, immediate){
-  let timeout;
-  const later = () => {
-    let context = this;
-    if(!immediate) fn.apply(context, arguments)
-  }
+export function debounce(fn, wait = 0, immediate = false){
+  let timeout = null;
 
-  return (...args) => {
-    let context = this;
+  return function(...args){
+    const context = this;
+    const later = () => {
+      timeout = null;
+      if(!immediate) fn.apply(context, args)
+    }
+
+    const callNow = !timeout && immediate;
+
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
 
-    const callNow = !timeout && immediate;
     if(callNow) fn.apply(context, args)
   }
 }
